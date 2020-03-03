@@ -92,6 +92,7 @@ func (p *Parser) Render(rawBytes []byte, urlPrefix string, metas map[string]stri
 		os.Environ(),
 		"GITEA_PREFIX_SRC="+urlPrefix,
 		"GITEA_PREFIX_RAW="+urlRawPrefix,
+		"SESSION_TOKEN="+metas["SessionToken"],
 	)
 	if !p.IsInputFile {
 		cmd.Stdin = rd

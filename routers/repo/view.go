@@ -306,7 +306,9 @@ func renderFile(ctx *context.Context, entry *git.TreeEntry, treeLink, rawLink st
 		if markupType := markup.Type(blob.Name()); markupType != "" {
 			ctx.Data["IsMarkup"] = true
 			ctx.Data["MarkupType"] = markupType
-			ctx.Data["FileContent"] = string(markup.Render(blob.Name(), buf, path.Dir(treeLink), ctx.Repo.Repository.ComposeMetas()))
+			metas := ctx.Repo.Repository.ComposeMetas()
+			metas["SessionToken"] = ctx.Data["SessionID"].(string)
+			ctx.Data["FileContent"] = string(markup.Render(blob.Name(), buf, path.Dir(treeLink), metas))
 		} else if readmeExist {
 			ctx.Data["IsRenderedHTML"] = true
 			ctx.Data["FileContent"] = strings.Replace(

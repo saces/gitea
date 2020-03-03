@@ -327,6 +327,7 @@ func Contexter() macaron.Handler {
 
 		ctx.Data["CsrfToken"] = html.EscapeString(x.GetToken())
 		ctx.Data["CsrfTokenHtml"] = template.HTML(`<input type="hidden" name="_csrf" value="` + ctx.Data["CsrfToken"].(string) + `">`)
+		ctx.Data["SessionID"] = sess.ID()
 		log.Debug("Session ID: %s", sess.ID())
 		log.Debug("CSRF Token: %v", ctx.Data["CsrfToken"])
 
